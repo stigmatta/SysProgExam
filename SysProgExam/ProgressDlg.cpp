@@ -1,7 +1,8 @@
 ﻿#include "ProgressDlg.h"
 #include "MainDlg.h"
 #include <unordered_map>
-
+#include <unordered_set>
+#include <sstream>
 using namespace std;
 namespace fs = std::filesystem;
 
@@ -53,6 +54,7 @@ void TopWordsList(HWND hListTop, const vector<pair<string, int>>& wordVector) {
 }
 
 DWORD WINAPI FindWordsAndPlaceInDir(LPVOID lpParam) {
+    unordered_set<string> originalWords; 
     unordered_map<string, int> wordCount;
     HWND hProgress = g_hProgressBar;
     TCHAR* buff = reinterpret_cast<TCHAR*>(lpParam);
@@ -60,6 +62,12 @@ DWORD WINAPI FindWordsAndPlaceInDir(LPVOID lpParam) {
     int strSize = WideCharToMultiByte(CP_UTF8, 0, buff, -1, NULL, 0, NULL, NULL);
     string buffString(strSize, 0);
     WideCharToMultiByte(CP_UTF8, 0, buff, -1, &buffString[0], strSize, NULL, NULL);
+
+    istringstream iss(buffString);
+    string word;
+    while (iss >> word) {
+        originalWords.insert(word);
+    }
 
     fs::path currentDir = fs::current_path();
     fs::path foundDir;
@@ -90,17 +98,20 @@ DWORD WINAPI FindWordsAndPlaceInDir(LPVOID lpParam) {
         }
 
         if (entry.path().extension() == ".txt" && entry.path().filename().string().find("encrypted") == string::npos) {
-            std::ifstream file(entry.path());
-            std::string word;
+            ifstream file(entry.path());
+            string word;
             bool wordFound = false;
             while (file >> word) {
-                wordCount[word]++;
+                if (originalWords.find(word) != originalWords.end()) {
+                    wordCount[word]++;
+                }
+
                 if (buffString.find(word) != std::string::npos) {
                     wordFound = true;
                     break;
                 }
             }
-           
+
             if (wordFound) {
                 fs::copy(entry.path(), foundDir / entry.path().filename());
             }
@@ -115,7 +126,7 @@ DWORD WINAPI FindWordsAndPlaceInDir(LPVOID lpParam) {
     sort(sortedWordVector.begin(), sortedWordVector.end(), sortByValue);
     HWND hListTop = GetDlgItem(CProgressDlg::hProgressDlg, IDC_LISTTOP);
 
-    TopWordsList(hListTop,sortedWordVector);
+    TopWordsList(hListTop, sortedWordVector);
 
     Sleep(1500);
     MessageBox(CProgressDlg::hProgressDlg, L"Отчет сформирован", L"Отчет", MB_OK);

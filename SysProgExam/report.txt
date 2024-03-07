@@ -1,0 +1,20 @@
+Путь к файлу: "C:\\Users\\morri\\OneDrive\\Рабочий стол\\Программирование\\Системное программирование\\practice\\Sync\\SysProgExam\\SysProgExam\\Found\\Текстовый документ (2).txt"
+Размер файла: 5 байт
+
+
+Путь к файлу: "C:\\Users\\morri\\OneDrive\\Рабочий стол\\Программирование\\Системное программирование\\practice\\Sync\\SysProgExam\\SysProgExam\\Found\\Текстовый документ (3).txt"
+Размер файла: 5 байт
+
+
+Путь к файлу: "C:\\Users\\morri\\OneDrive\\Рабочий стол\\Программирование\\Системное программирование\\practice\\Sync\\SysProgExam\\SysProgExam\\Found\\Текстовый документ (4).txt"
+Размер файла: 13 байт
+
+
+Путь к файлу: "C:\\Users\\morri\\OneDrive\\Рабочий стол\\Программирование\\Системное программирование\\practice\\Sync\\SysProgExam\\SysProgExam\\Found\\Текстовый документ (5).txt"
+Размер файла: 29 байт
+
+
+Путь к файлу: "C:\\Users\\morri\\OneDrive\\Рабочий стол\\Программирование\\Системное программирование\\practice\\Sync\\SysProgExam\\SysProgExam\\Found\\Текстовый документ.txt"
+Размер файла: 29 байт
+
+
